@@ -225,7 +225,16 @@ fun main(args: Array<String>) {
             else -> throw Exception("Unknown direction")
         }
         stairs.add(Stair(Coordinate(x, y), d))
+        if (grid[y][x].block == Block.LOCK) throw Exception("Error: Already registered as lock, cannot override it by Stair")
+        grid[y][x].block = Block.STAIR
         line = readLine()!!
+    }
+
+    grid.forEachIndexed { i, row ->
+        row.forEachIndexed { j, _ ->
+            if (grid[i][j].block == Block.STAIR && stairs.none { it.coo == Coordinate(j, i) })
+                throw Exception("Error: A stair is declared on grid but not registered in stairs list")
+        }
     }
 
     println("> For the moment locks/platforms are unsupported.")

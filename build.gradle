@@ -12,6 +12,12 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    manifest {
+        attributes('Main-Class': 'MainKt')
+    }
+}
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1"
